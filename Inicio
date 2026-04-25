@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caelo Travel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --azul-profundo: #0a2540;
+      --azul-cielo: #1a6fa8;
+      --azul-claro: #5bc4e4;
+      --turquesa: #00c2cb;
+      --arena: #f4f0e6;
+      --blanco: #ffffff;
+      --gris-suave: #e8f4f8;
+      --texto-oscuro: #0d1b2a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      color: var(--texto-oscuro);
+      background: var(--blanco);
+      overflow-x: hidden;
+    }
+
+    /* ───────── HERO ───────── */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* ── Imagen de fondo – reemplaza este bloque con <img> o background-image real ── */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      /* Imagen aquí */
+      background: linear-gradient(135deg, #0a2540 0%, #1a6fa8 40%, #00c2cb 75%, #5bc4e4 100%);
+      z-index: 0;
+    }
+
+    /* Overlay suave para legibilidad */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,37,64,0.55) 0%, rgba(10,37,64,0.25) 60%, rgba(10,37,64,0.65) 100%);
+    }
+
+    /* Decoración de olas en la parte inferior del hero */
+    .hero-wave {
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .hero-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--turquesa);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: clamp(3.8rem, 10vw, 8rem);
+      color: var(--blanco);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.55s forwards;
+    }
+
+    .hero-title span {
+      color: var(--azul-claro);
+    }
+
+    .hero-sub {
+      margin-top: 28px;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.82);
+      letter-spacing: 0.06em;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.8s forwards;
+    }
+
+    .hero-cta {
+      margin-top: 48px;
+      display: inline-block;
+      padding: 16px 44px;
+      border: 2px solid var(--turquesa);
+      color: var(--blanco);
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+      opacity: 0;
+      animation: fadeUp 0.9s 1.05s forwards;
+    }
+
+    .hero-cta:hover {
+      background: var(--turquesa);
+      color: var(--azul-profundo);
+    }
+
+    /* decorative floating circles */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(91,196,228,0.12);
+      animation: float linear infinite;
+      z-index: 1;
+    }
+    .bubble:nth-child(1) { width:320px; height:320px; top:-80px; left:-60px; animation-duration:18s; }
+    .bubble:nth-child(2) { width:180px; height:180px; bottom:120px; right:60px; animation-duration:13s; animation-delay:-4s; }
+    .bubble:nth-child(3) { width:90px; height:90px; top:40%; left:15%; animation-duration:9s; animation-delay:-2s; }
+
+    @keyframes float {
+      0%   { transform: translateY(0) rotate(0deg); }
+      50%  { transform: translateY(-30px) rotate(180deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ───────── SOBRE NOSOTROS ───────── */
+    .section-about {
+      background: var(--blanco);
+      padding: 100px 24px;
+      text-align: center;
+    }
+
+    .section-about .pill {
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 40px;
+      background: var(--gris-suave);
+      color: var(--azul-cielo);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .section-about h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 600;
+      color: var(--azul-profundo);
+      margin-bottom: 28px;
+      max-width: 680px;
+      margin-inline: auto;
+    }
+
+    .section-about p {
+      max-width: 600px;
+      margin-inline: auto;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #3a4a5c;
+      font-weight: 300;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--azul-cielo), var(--turquesa));
+      border-radius: 4px;
+      margin: 32px auto;
+    }
+
+    /* ───────── SERVICIOS ───────── */
+    .section-services {
+      background: var(--gris-suave);
+      padding: 100px 24px;
+      text-align: center;
+    }
+
+    .section-services h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 600;
+      color: var(--azul-profundo);
+      margin-bottom: 64px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 900px;
+      margin-inline: auto;
+    }
+
+    .service-card {
+      background: var(--blanco);
+      border-radius: 20px;
+      padding: 40px 24px 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 24px rgba(26,111,168,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(26,111,168,0.15);
+    }
+
+    .service-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--azul-cielo), var(--turquesa));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+    }
+
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--azul-profundo);
+    }
+
+    .service-card p {
+      font-size: 0.85rem;
+      color: #5a7080;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ───────── FRASE DE MARCA ───────── */
+    .section-brand {
+      background: linear-gradient(135deg, var(--azul-profundo) 0%, #0d3a63 50%, #1a6fa8 100%);
+      padding: 120px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-brand::before {
+      content: '"';
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28rem;
+      color: rgba(255,255,255,0.03);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .section-brand blockquote {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      margin-inline: auto;
+    }
+
+    .section-brand blockquote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      font-weight: 400;
+      color: var(--blanco);
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+    }
+
+    .section-brand blockquote p em {
+      color: var(--azul-claro);
+      font-style: italic;
+    }
+
+    .section-brand cite {
+      display: block;
+      margin-top: 32px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--turquesa);
+    }
+
+    /* ───────── PAQUETES / PLANES ───────── */
+    .section-plans {
+      background: var(--blanco);
+      padding: 110px 24px;
+      text-align: center;
+    }
+
+    .section-plans h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 600;
+      color: var(--azul-profundo);
+      margin-bottom: 16px;
+    }
+
+    .section-plans .sub {
+      font-size: 1rem;
+      color: #5a7080;
+      font-weight: 300;
+      margin-bottom: 64px;
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      max-width: 1100px;
+      margin-inline: auto;
+    }
+
+    .plan-card {
+      border-radius: 24px;
+      overflow: hidden;
+      text-align: left;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 28px rgba(10,37,64,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(10,37,64,0.15);
+    }
+
+    .plan-header {
+      padding: 36px 28px 28px;
+    }
+
+    .plan-card.economico .plan-header { background: var(--gris-suave); }
+    .plan-card.estandar .plan-header  { background: linear-gradient(135deg, #1a6fa8, #0a4a80); }
+    .plan-card.premium .plan-header   { background: linear-gradient(135deg, #0a2540, #1a6fa8, #00c2cb); }
+    .plan-card.exclusivo .plan-header { background: linear-gradient(135deg, #0a2540 0%, #0d3a63 60%, #0a2540 100%); }
+
+    .plan-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .plan-card.economico .plan-badge  { background: rgba(26,111,168,0.12); color: var(--azul-cielo); }
+    .plan-card.estandar .plan-badge   { background: rgba(255,255,255,0.2); color: rgba(255,255,255,0.9); }
+    .plan-card.premium .plan-badge    { background: rgba(0,194,203,0.3); color: var(--turquesa); }
+    .plan-card.exclusivo .plan-badge  { background: rgba(255,215,100,0.2); color: #ffd764; }
+
+    .plan-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+    }
+
+    .plan-card.economico .plan-name { color: var(--azul-profundo); }
+    .plan-card.estandar .plan-name,
+    .plan-card.premium .plan-name,
+    .plan-card.exclusivo .plan-name { color: var(--blanco); }
+
+    .plan-tagline {
+      margin-top: 8px;
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .plan-card.economico .plan-tagline { color: #5a7080; }
+    .plan-card.estandar .plan-tagline,
+    .plan-card.premium .plan-tagline,
+    .plan-card.exclusivo .plan-tagline { color: rgba(255,255,255,0.75); }
+
+    .plan-body {
+      padding: 28px;
+      background: var(--blanco);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .plan-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--azul-profundo);
+    }
+
+    .plan-price span {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: #8a9eb0;
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .plan-features li {
+      font-size: 0.88rem;
+      color: #3a4a5c;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.5;
+      font-weight: 300;
+    }
+
+    .plan-features li::before {
+      content: '✦';
+      color: var(--turquesa);
+      font-size: 0.65rem;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    /* ───────── WhatsApp CTA ───────── */
+    .section-cta {
+      background: var(--gris-suave);
+      padding: 100px 24px;
+      text-align: center;
+    }
+
+    .section-cta p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      color: var(--azul-profundo);
+      font-weight: 400;
+      margin-bottom: 40px;
+      max-width: 560px;
+      margin-inline: auto;
+    }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: #25d366;
+      color: var(--blanco);
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      padding: 20px 52px;
+      border-radius: 60px;
+      box-shadow: 0 8px 32px rgba(37,211,102,0.35);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+
+    .whatsapp-btn:hover {
+      background: #1ebe5b;
+      transform: translateY(-4px);
+      box-shadow: 0 16px 44px rgba(37,211,102,0.45);
+    }
+
+    .whatsapp-btn svg {
+      width: 26px;
+      height: 26px;
+      fill: currentColor;
+    }
+
+    /* ───────── FOOTER ───────── */
+    footer {
+      background: var(--azul-profundo);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 36px 24px;
+      font-size: 0.82rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    footer strong {
+      color: var(--azul-claro);
+    }
+
+    /* ───────── RESPONSIVE ───────── */
+    @media (max-width: 680px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .plans-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero">
+    <!-- Fondo: reemplazar con <img> o background-image cuando esté disponible -->
+    <div class="hero-bg"></div>
+
+    <!-- Burbujas decorativas -->
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <div class="hero-content">
+      <p class="hero-label">Agencia de viajes</p>
+      <h1 class="hero-title">Caelo<br><span>Travel</span></h1>
+      <p class="hero-sub">Donde cada destino se convierte en un recuerdo eterno</p>
+      <a href="#servicios" class="hero-cta">Descubre nuestros planes</a>
+    </div>
+
+    <!-- Onda decorativa inferior -->
+    <svg class="hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C360,100 1080,20 1440,60 L1440,90 L0,90 Z" fill="#ffffff"/>
+    </svg>
+  </section>
+
+  <!-- ══════════ SOBRE NOSOTROS ══════════ -->
+  <section class="section-about">
+    <div class="pill">¿Quiénes somos?</div>
+    <h2>Viajes pensados para quienes sueñan en grande</h2>
+    <div class="divider"></div>
+    <p>
+      Caelo Travel es una agencia especializada en crear experiencias de viaje únicas y personalizadas. Conectamos a nuestros clientes con los destinos más increíbles del mundo, ofreciendo asesoría experta, planes completos y un servicio cercano desde la primera consulta hasta el regreso a casa.
+    </p>
+  </section>
+
+  <!-- ══════════ SERVICIOS ══════════ -->
+  <section class="section-services" id="servicios">
+    <h2>Nuestros Servicios</h2>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">🏨</div>
+        <h3>Hospedaje</h3>
+        <p>Hoteles boutique, resorts y alojamientos únicos seleccionados para tu comodidad y presupuesto.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">✈️</div>
+        <h3>Vuelos</h3>
+        <p>Búsqueda y reserva de tiquetes aéreos nacionales e internacionales con las mejores tarifas.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🗺️</div>
+        <h3>Tours Guiados</h3>
+        <p>Recorridos locales con guías expertos que te llevan a lo más auténtico de cada destino.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🚌</div>
+        <h3>Transporte</h3>
+        <p>Traslados aeropuerto, alquiler de vehículos y movilización privada durante todo tu viaje.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🤿</div>
+        <h3>Experiencias</h3>
+        <p>Actividades de aventura, culturales y gastronómicas que hacen cada viaje irrepetible.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🛡️</div>
+        <h3>Seguro de Viaje</h3>
+        <p>Cobertura integral para que viajes tranquilo ante cualquier imprevisto médico o logístico.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════ FRASE DE MARCA ══════════ -->
+  <section class="section-brand">
+    <blockquote>
+      <p>
+        No solo te llevamos a un destino —<br>
+        <em>te acompañamos en cada paso del camino.</em><br>
+        Porque viajar bien empieza por sentirse comprendido.
+      </p>
+      <cite>— La filosofía Caelo Travel</cite>
+    </blockquote>
+  </section>
+
+  <!-- ══════════ PLANES DE VIAJE ══════════ -->
+  <section class="section-plans" id="planes">
+    <h2>Planes de Viaje</h2>
+    <p class="sub">Escoge la experiencia que más te inspire. Todos incluyen asesoría personalizada.</p>
+
+    <div class="plans-grid">
+
+      <!-- Económico -->
+      <div class="plan-card economico">
+        <div class="plan-header">
+          <span class="plan-badge">Categoría Básica</span>
+          <div class="plan-name">Escapada Libre</div>
+          <p class="plan-tagline">Lo esencial para disfrutar sin preocupaciones.</p>
+        </div>
+        <div class="plan-body">
+          <div class="plan-price">Desde $1.200.000 <span>/ persona</span></div>
+          <ul class="plan-features">
+            <li>Tiquete aéreo económico ida y vuelta</li>
+            <li>3 noches en hotel 2 estrellas o hostal confort</li>
+            <li>Traslado aeropuerto – hotel</li>
+            <li>Mapa de actividades locales gratuitas</li>
+            <li>Asistencia por chat 24/7</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Estándar -->
+      <div class="plan-card estandar">
+        <div class="plan-header">
+          <span class="plan-badge">Categoría Media</span>
+          <div class="plan-name">Viaje Completo</div>
+          <p class="plan-tagline">El equilibrio perfecto entre precio y experiencia.</p>
+        </div>
+        <div class="plan-body">
+          <div class="plan-price">Desde $2.800.000 <span>/ persona</span></div>
+          <ul class="plan-features">
+            <li>Vuelo en clase ejecutiva o económica plus</li>
+            <li>5 noches en hotel 3 estrellas con desayuno</li>
+            <li>Traslados privados incluidos</li>
+            <li>1 tour guiado de ciudad o naturaleza</li>
+            <li>Seguro de viaje básico</li>
+            <li>Asesor personal dedicado</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Premium -->
+      <div class="plan-card premium">
+        <div class="plan-header">
+          <span class="plan-badge">Categoría Alta</span>
+          <div class="plan-name">Experiencia Premium</div>
+          <p class="plan-tagline">Lujo y comodidad en cada detalle del recorrido.</p>
+        </div>
+        <div class="plan-body">
+          <div class="plan-price">Desde $5.500.000 <span>/ persona</span></div>
+          <ul class="plan-features">
+            <li>Vuelo en clase ejecutiva</li>
+            <li>7 noches en hotel 4–5 estrellas todo incluido</li>
+            <li>Transporte VIP en destino</li>
+            <li>3 tours exclusivos con guía privado</li>
+            <li>Seguro de viaje completo con repatriación</li>
+            <li>Experiencia gastronómica de autor</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Exclusivo -->
+      <div class="plan-card exclusivo">
+        <div class="plan-header">
+          <span class="plan-badge">Categoría Exclusiva</span>
+          <div class="plan-name">Grand Caelo</div>
+          <p class="plan-tagline">Diseñado a tu medida. Sin límites. Sin igual.</p>
+        </div>
+        <div class="plan-body">
+          <div class="plan-price">A consultar <span>/ grupo</span></div>
+          <ul class="plan-features">
+            <li>Itinerario 100% personalizado</li>
+            <li>Alojamiento en villas o resorts de lujo</li>
+            <li>Jet privado o primera clase internacional</li>
+            <li>Concierge exclusivo en destino 24/7</li>
+            <li>Experiencias únicas: safaris, islas privadas, etc.</li>
+            <li>Seguro premium y cobertura médica VIP</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════ CTA WHATSAPP ══════════ -->
+  <section class="section-cta">
+    <p>¿Listo para tu próxima aventura?<br>Hablemos y creamos juntos el viaje perfecto.</p>
+    <a
+      href="https://wa.me/573000000000?text=Hola%20Caelo%20Travel%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20planes%20de%20viaje."
+      class="whatsapp-btn"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.476 2.027 7.782L0 32l8.452-2.005A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.28 13.28 0 0 1-6.77-1.843l-.485-.288-5.016 1.19 1.212-4.894-.317-.5A13.267 13.267 0 0 1 2.667 16C2.667 8.637 8.637 2.667 16 2.667S29.333 8.637 29.333 16 23.363 29.333 16 29.333zm7.266-9.963c-.398-.199-2.355-1.162-2.72-1.294-.366-.133-.632-.199-.898.199-.266.398-1.031 1.294-1.264 1.56-.233.266-.465.3-.863.1-.398-.2-1.68-.619-3.2-1.975-1.183-1.055-1.98-2.358-2.213-2.756-.233-.398-.025-.612.175-.81.18-.178.398-.465.597-.698.2-.232.266-.398.4-.664.133-.266.066-.498-.033-.697-.1-.2-.899-2.167-1.231-2.966-.323-.777-.65-.672-.898-.685l-.765-.013c-.266 0-.697.1-1.063.498-.365.398-1.396 1.365-1.396 3.33 0 1.965 1.43 3.863 1.629 4.131.2.266 2.816 4.297 6.822 6.027.954.411 1.699.657 2.28.841.958.305 1.831.262 2.52.159.768-.114 2.355-.963 2.688-1.893.333-.93.333-1.727.233-1.893-.1-.166-.366-.266-.764-.465z"/>
+      </svg>
+      Contáctanos por WhatsApp
+    </a>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <p>© 2025 <strong>Caelo Travel</strong> · Todos los derechos reservados · Hecho con ✦ para viajeros soñadores</p>
+  </footer>
+
+</body>
+</html>
